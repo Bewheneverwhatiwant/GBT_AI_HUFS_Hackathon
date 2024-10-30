@@ -1,17 +1,16 @@
 import React from 'react';
-import axios from 'axios'; // axios 임포트
+import axios from 'axios';
 import CustomColumn from '../../components/CommonComponents/CustomColumn';
 import CustomButton from '../../components/CommonComponents/CustomButton';
 import CustomFont from '../../components/CommonComponents/CustomFont';
 import CustomRow from '../../components/CommonComponents/CustomRow';
 
-// 비동기 API 호출 함수
 const fetchCategorizedData = async () => {
     try {
         const response = await axios.get(`${import.meta.env.VITE_SERVER}/categorized`);
-        console.log('API 호출 성공:', response.data); // 응답 데이터 출력
+        console.log('API 호출 성공:', response.data);
     } catch (error) {
-        console.error('API 호출 실패:', error); // 에러 출력
+        console.error('API 호출 실패:', error);
     }
 };
 
