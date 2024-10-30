@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-
-import CustomColumn from './CommonComponents/CustomColumn';
-import CustomBox from './CommonComponents/CustomBox';
-import CustomFont from './CommonComponents/CustomFont';
-import CustomDivider from './CommonComponents/CustomDivider';
-import CustomButton from './CommonComponents/CustomButton';
-import CustomRow from './CommonComponents/CustomRow';
-
 import styled from 'styled-components';
+
+import CustomColumn from '../CommonComponents/CustomColumn';
+import CustomBox from '../CommonComponents/CustomBox';
+import CustomFont from '../CommonComponents/CustomFont';
+import CustomDivider from '../CommonComponents/CustomDivider';
+import CustomButton from '../CommonComponents/CustomButton';
+import CustomRow from '../CommonComponents/CustomRow';
 
 const CustomInput = styled.input`
     background-color: transparent;
