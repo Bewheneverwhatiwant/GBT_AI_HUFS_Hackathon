@@ -13,7 +13,7 @@ const Triangle = styled.div`
   border-left: 0.4rem solid transparent;
   border-right: 0.4rem solid transparent;
   border-bottom: 0.7rem solid #D9D9D9;
-  transform: ${({ isOpen }) => (isOpen ? 'rotate(0deg)' : 'rotate(180deg)')};
+  transform: ${({ $isOpen }) => ($isOpen ? 'rotate(0deg)' : 'rotate(180deg)')};
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
 `;
@@ -75,7 +75,7 @@ const B_ComplainListComponent = () => {
 						$gap="2rem"
 						onClick={() => toggleDropdown('all')}
 					>
-						<Triangle isOpen={isDropdownOpen.all} />
+						<Triangle $isOpen={isDropdownOpen.all} />
 						<CustomFont $color="white" $font="1rem">{allFilter}</CustomFont>
 					</CustomButton>
 
@@ -100,7 +100,7 @@ const B_ComplainListComponent = () => {
 						$gap="2rem"
 						onClick={() => toggleDropdown('order')}
 					>
-						<Triangle isOpen={isDropdownOpen.order} />
+						<Triangle $isOpen={isDropdownOpen.order} />
 						<CustomFont $color="white" $font="1rem">{orderFilter}</CustomFont>
 					</CustomButton>
 
