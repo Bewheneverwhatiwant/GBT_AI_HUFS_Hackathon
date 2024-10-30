@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
 import SideBar from './components/SideBar';
 import MainPage from './MainComponents/mainpage';
 import ResetCss from './ResetCss';
+import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
@@ -25,10 +25,30 @@ const Main = styled.main`
 
 function App() {
   const [showCategories, setShowCategories] = useState(false);
-  const [categories, setCategories] = useState([]); // category_name 목록 저장
-  const [data, setData] = useState([]); // 전체 API 데이터
-  const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리
-  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 관리
+  const [categories, setCategories] = useState([]);
+  const [data, setData] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedSimilarCaseGroups, setSelectedSimilarCaseGroups] = useState([]);
+
+  // 데이터가 준비된 후 첫 번째 카테고리의 similar_case_groups 설정
+  useEffect(() => {
+    if (categories.length > 0 && !selectedCategory) {
+      console.log('첫 번째 카테고리 선택 및 데이터 설정');
+      const firstCategory = categories[0];
+      setSelectedCategory(firstCategory); // 첫 번째 카테고리 선택
+      updateSimilarCaseGroups(firstCategory); // similar_case_groups 설정
+    }
+  }, [categories, data]);
+
+  const updateSimilarCaseGroups = (categoryName) => {
+    const categoryData = data.find((item) => item.category_name === categoryName);
+    if (categoryData) {
+      setSelectedSimilarCaseGroups(categoryData.similar_case_groups); // 데이터 설정
+    } else {
+      console.warn(`카테고리 ${categoryName}에 해당하는 데이터가 없습니다.`);
+    }
+  };
 
   const handleStartClick = () => {
     console.log('handleStartClick 호출됨');
@@ -37,40 +57,19 @@ function App() {
   };
 
   const handleCategoriesExtracted = (extractedCategories, fullData) => {
-    console.log('카테고리 이름들 전달 성공');
+    console.log('카테고리 이름들 전달 성공:', extractedCategories);
+    console.log('전체 데이터:', fullData);
+
+    if (!extractedCategories || !fullData || extractedCategories.length === 0) {
+      console.error('카테고리 데이터가 비어 있거나 잘못되었습니다.');
+      setIsLoading(false);
+      return;
+    }
+
     setCategories(extractedCategories);
     setData(fullData);
     setIsLoading(false);
-    console.log(fullData);
-
-    if (extractedCategories.length > 0) {
-      const firstCategory = extractedCategories[0];
-      setSelectedCategory(firstCategory); // 첫 번째 카테고리 기본 선택
-      logSimilarCaseGroups(fullData, firstCategory); // 첫 번째 카테고리의 similar_case_groups 출력
-    }
   };
-
-  const logSimilarCaseGroups = (data, categoryName) => {
-    console.log('logSimilarCaseGroups 호출됨 - 카테고리 이름:', categoryName);
-    console.log('데이터 확인:', data);
-
-    if (!data || !categoryName) {
-      console.error('데이터 또는 카테고리 이름이 정의되지 않았습니다.');
-      setIsLoading(false);
-      return;
-    }
-
-    const categoryData = data.find((item) => item.category_name.trim() === categoryName.trim());
-
-    if (!categoryData) {
-      console.error(`카테고리 ${categoryName}에 해당하는 데이터가 없습니다.`);
-      setIsLoading(false);
-      return;
-    }
-
-    console.log('선택된 카테고리의 similar_case_groups:', categoryData.similar_case_groups);
-  };
-
 
   return (
     <>
@@ -79,11 +78,11 @@ function App() {
         <SideBar
           showCategories={showCategories}
           categories={categories}
-          selectedCategory={selectedCategory}
           isLoading={isLoading}
+          selectedCategory={selectedCategory}
           onCategorySelect={(category) => {
-            setSelectedCategory(category); // 선택된 카테고리 업데이트
-            logSimilarCaseGroups(data, category); // 해당 카테고리의 similar_case_groups 출력
+            setSelectedCategory(category);
+            updateSimilarCaseGroups(category); // 선택된 카테고리의 데이터 설정
           }}
         />
         <Main>
@@ -92,6 +91,7 @@ function App() {
             onCategoriesExtracted={(categories, fullData) =>
               handleCategoriesExtracted(categories, fullData)
             }
+            similarCaseGroups={selectedSimilarCaseGroups}
           />
         </Main>
       </Container>

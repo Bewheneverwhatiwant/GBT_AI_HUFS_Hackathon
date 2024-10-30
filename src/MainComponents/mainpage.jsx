@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import A_CoverComponent from './ServiceFlow/a_CoverComponent';
 import B_ComplainListComponent from './ServiceFlow/B_ComplainListComponent';
 
-const MainPage = ({ onStartClick, onCategoriesExtracted }) => {
+const MainPage = ({ onStartClick, onCategoriesExtracted, similarCaseGroups }) => {
 	const [isComplaintsVisible, setIsComplaintsVisible] = useState(false);
 
 	const handleStartClick = () => {
@@ -13,7 +13,7 @@ const MainPage = ({ onStartClick, onCategoriesExtracted }) => {
 	return (
 		<>
 			{isComplaintsVisible ? (
-				<B_ComplainListComponent />
+				<B_ComplainListComponent similarCaseGroups={similarCaseGroups} />
 			) : (
 				<A_CoverComponent
 					onStartClick={handleStartClick}
