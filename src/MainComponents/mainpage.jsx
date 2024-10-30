@@ -4,11 +4,12 @@ import styled from 'styled-components';
 import A_CoverComponent from './ServiceFlow/a_CoverComponent';
 import B_ComplainListComponent from './ServiceFlow/B_ComplainListComponent';
 
-const MainPage = () => {
+const MainPage = ({ onStartClick }) => {
 	const [isComplaintsVisible, setIsComplaintsVisible] = useState(false);
 
 	const handleStartClick = () => {
-		setIsComplaintsVisible(true); // '시연시작' 버튼 클릭 시 호출
+		setIsComplaintsVisible(true);
+		onStartClick(); // App 컴포넌트의 상태 변경 함수 호출
 	};
 
 	return (

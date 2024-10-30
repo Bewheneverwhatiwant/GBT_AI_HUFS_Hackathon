@@ -19,7 +19,7 @@ const SideBarContainer = styled.div`
     justity-content: flex-start;
 `;
 
-const SideBar = () => {
+const SideBar = ({ showCategories }) => {
 
 	return (
 		<SideBarContainer>
@@ -31,19 +31,23 @@ const SideBar = () => {
 					</CustomFont>
 				</CustomRow>
 
-				<CustomRow $width='100%' $alignItems='center' $justifyContent='flex-start'>
-					<CustomButton $justifyContent='flex-start' $gap='1rem' $width='90%'
-						$backgroundColor='transparent' $hoverColor='#282D31'>
-						<CustomFont $color='white' $font='1rem'>카테고리1</CustomFont>
-					</CustomButton>
-				</CustomRow>
+				{showCategories && ( // showCategories가 true일 때만 버튼 표시
+					<>
+						<CustomRow $width="100%" $alignItems="center" $justifyContent="flex-start">
+							<CustomButton $justifyContent="flex-start" $gap="1rem" $width="90%"
+								$backgroundColor="transparent" $hoverColor="#282D31">
+								<CustomFont $color="white" $font="1rem">카테고리1</CustomFont>
+							</CustomButton>
+						</CustomRow>
 
-				<CustomRow $width='100%' $alignItems='center' $justifyContent='flex-start'>
-					<CustomButton $justifyContent='flex-start' $gap='1rem' $width='90%'
-						$backgroundColor='transparent' $hoverColor='#282D31'>
-						<CustomFont $color='white' $font='1rem'>카테고리2</CustomFont>
-					</CustomButton>
-				</CustomRow>
+						<CustomRow $width="100%" $alignItems="center" $justifyContent="flex-start">
+							<CustomButton $justifyContent="flex-start" $gap="1rem" $width="90%"
+								$backgroundColor="transparent" $hoverColor="#282D31">
+								<CustomFont $color="white" $font="1rem">카테고리2</CustomFont>
+							</CustomButton>
+						</CustomRow>
+					</>
+				)}
 			</CustomColumn>
 		</SideBarContainer>
 	);

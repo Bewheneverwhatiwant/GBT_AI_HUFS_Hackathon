@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import SideBar from './components/SideBar';
 import MainPage from './MainComponents/mainpage';
@@ -24,13 +25,20 @@ const Main = styled.main`
 
 function App() {
 
+  const [showCategories, setShowCategories] = useState(false);
+
+  const handleStartClick = () => {
+    // console.log('handleStartClick 호출됨');
+    setShowCategories(true); // 버튼 클릭 시 카테고리 표시
+  };
+
   return (
     <>
       <ResetCss />
       <Container>
-        <SideBar />
+        <SideBar showCategories={showCategories} /> {/* 상태 전달 */}
         <Main>
-          <MainPage />
+          <MainPage onStartClick={handleStartClick} />
         </Main>
       </Container>
     </>
