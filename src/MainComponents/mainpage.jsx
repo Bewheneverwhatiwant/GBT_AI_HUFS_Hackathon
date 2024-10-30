@@ -7,15 +7,13 @@ import CustomRow from '../components/CommonComponents/CustomRow';
 import CustomDivider from '../components/CommonComponents/CustomDivider';
 import CustomCenter from '../components/CommonComponents/CustomCenter';
 
+import A_CoverComponent from './ServiceFlow/a_CoverComponent';
+
 const MainPage = () => {
 
 	return (
 
-		<CustomColumn $width='100%' $alignItems='center' $justifyContent='flex-start' $gap='2rem'>
-			<CustomCenter>
-				<CustomFont $color='white' $font='1rem'>여기에 내용</CustomFont>
-			</CustomCenter>
-		</CustomColumn>
+		<A_CoverComponent />
 
 	);
 };
