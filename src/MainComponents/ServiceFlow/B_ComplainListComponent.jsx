@@ -21,7 +21,7 @@ const B_ComplainListComponent = ({ categoryData }) => {
 				<ComplainBox
 					key={target_case.case_id} // key를 설정해 컴포넌트 강제 재생성
 					title={target_case.title}
-					recommendedAnswer={target_case.content}
+					recommendedAnswer={target_case.recommended_answer}
 					answerDate={target_case.answer_date}
 				/>
 			)}
