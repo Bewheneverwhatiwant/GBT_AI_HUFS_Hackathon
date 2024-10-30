@@ -8,28 +8,25 @@ import CustomDivider from './CommonComponents/CustomDivider';
 import CustomButton from './CommonComponents/CustomButton';
 import CustomRow from './CommonComponents/CustomRow';
 
-import WholeToggleButton from './Toggle/WholeToggleButton';
-
 const CustomInput = styled.input`
-	width: 100%;
-    background-color: transparent;
-    border: 1px solid #464646;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    font-size: 1rem;
-    color: white;
-    outline: none;
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid #464646;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  color: white;
+  outline: none;
 
-    &:focus {
-        border-color: #537042;
-    }
+  &:focus {
+    border-color: #537042;
+  }
 `;
 
-const ComplainBox = () => {
+const ComplainBox = ({ title, recommendedAnswer, answerDate }) => {
 	const [isEditing, setIsEditing] = useState(false);
-	const [answer, setAnswer] = useState('담당공무원 추천 답변 내용');
+	const [answer, setAnswer] = useState(recommendedAnswer || '답변 내용 없음');
 	const [inputValue, setInputValue] = useState(answer);
-
 	const [isCompleted, setIsCompleted] = useState(false);
 	const [completedTime, setCompletedTime] = useState('');
 
@@ -45,7 +42,7 @@ const ComplainBox = () => {
 		setAnswer(inputValue);
 		setIsEditing(false);
 		setIsCompleted(true);
-		setCompletedTime(new Date().toLocaleString()); // 답변 완료 시간 저장
+		setCompletedTime(new Date().toLocaleString());
 		alert('답변이 등록되었습니다!');
 	};
 
@@ -53,7 +50,6 @@ const ComplainBox = () => {
 		<CustomColumn $width="100%" $alignItems="center" $justifyContent="center">
 			<CustomBox $backgroundColor="#2B2B2B" $width="100%">
 				<CustomColumn $width="100%" $alignItems="center" $justifyContent="center">
-
 					{isCompleted && (
 						<CustomRow $width="100%" $alignItems="center" $justifyContent="space-between" $gap="0.5rem">
 							<CustomFont $color="#91D567" $font="1rem" $fontWeight="bold">
@@ -66,7 +62,7 @@ const ComplainBox = () => {
 					)}
 
 					<CustomFont $color="white" $font="1rem">
-						민원인 민원 1
+						{title}
 					</CustomFont>
 
 					<CustomRow $width="100%" $alignItems="center" $justifyContent="flex-end" $gap="0.5rem">
@@ -74,7 +70,7 @@ const ComplainBox = () => {
 							접수일자:
 						</CustomFont>
 						<CustomFont $color="#464646" $font="1rem" $fontWeight="bold">
-							2024.10.30
+							{answerDate}
 						</CustomFont>
 					</CustomRow>
 
@@ -97,7 +93,7 @@ const ComplainBox = () => {
 							<>
 								<CustomButton
 									$backgroundColor="#464646"
-									onClick={() => setInputValue('담당공무원 추천 답변 내용')}
+									onClick={() => setInputValue(recommendedAnswer || '답변 내용 없음')}
 								>
 									<CustomFont $color="white" $font="1rem">
 										추천 답변으로 초기화
@@ -119,8 +115,6 @@ const ComplainBox = () => {
 					</CustomRow>
 				</CustomColumn>
 			</CustomBox>
-
-			<WholeToggleButton />
 		</CustomColumn>
 	);
 };
