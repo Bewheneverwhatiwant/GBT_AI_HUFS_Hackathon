@@ -33,14 +33,21 @@ const SideBarContainer = styled.div`
 
 const SideBar = ({ showCategories, categories, selectedCategory, onCategorySelect, isLoading }) => {
 	useEffect(() => {
-		if (categories.length > 0) {
-			console.log('카테고리 이름들 전달 성공');
+		if (categories.length > 0 && !selectedCategory) {
+			console.log('첫 번째 카테고리 자동 선택:', categories[0]);
+			onCategorySelect(categories[0]); // 첫 번째 카테고리 선택
 		}
-	}, [categories]);
+	}, [categories, selectedCategory, onCategorySelect]);
 
 	return (
 		<SideBarContainer>
-			<CustomColumn $width="100%" $height="100vh" $alignItems="center" $justifyContent="flex-start" $gap="1rem">
+			<CustomColumn
+				$width="100%"
+				$height="100vh"
+				$alignItems="center"
+				$justifyContent="flex-start"
+				$gap="1rem"
+			>
 				<CustomRow $width="100%" $alignItems="center" $justifyContent="flex-start">
 					<CustomFont $color="#AFAFAF" $fontWeight="bold" $font="1.5rem">
 						Category

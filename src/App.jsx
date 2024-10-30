@@ -27,28 +27,18 @@ function App() {
   const [showCategories, setShowCategories] = useState(false);
   const [categories, setCategories] = useState([]);
   const [data, setData] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategoryData, setSelectedCategoryData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedSimilarCaseGroups, setSelectedSimilarCaseGroups] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리 상태
 
-  // 데이터가 준비된 후 첫 번째 카테고리의 similar_case_groups 설정
   useEffect(() => {
+    // 첫 번째 카테고리 자동 선택
     if (categories.length > 0 && !selectedCategory) {
-      console.log('첫 번째 카테고리 선택 및 데이터 설정');
       const firstCategory = categories[0];
       setSelectedCategory(firstCategory); // 첫 번째 카테고리 선택
-      updateSimilarCaseGroups(firstCategory); // similar_case_groups 설정
+      setSelectedCategoryData(data.find(item => item.category_name === firstCategory));
     }
-  }, [categories, data]);
-
-  const updateSimilarCaseGroups = (categoryName) => {
-    const categoryData = data.find((item) => item.category_name === categoryName);
-    if (categoryData) {
-      setSelectedSimilarCaseGroups(categoryData.similar_case_groups); // 데이터 설정
-    } else {
-      console.warn(`카테고리 ${categoryName}에 해당하는 데이터가 없습니다.`);
-    }
-  };
+  }, [categories, data, selectedCategory]);
 
   const handleStartClick = () => {
     console.log('handleStartClick 호출됨');
@@ -80,18 +70,19 @@ function App() {
           categories={categories}
           isLoading={isLoading}
           selectedCategory={selectedCategory}
-          onCategorySelect={(category) => {
-            setSelectedCategory(category);
-            updateSimilarCaseGroups(category); // 선택된 카테고리의 데이터 설정
+          onCategorySelect={(categoryName) => {
+            setSelectedCategory(categoryName);
+            const categoryData = data.find(item => item.category_name === categoryName);
+            if (categoryData) {
+              setSelectedCategoryData(categoryData);
+            }
           }}
         />
         <Main>
           <MainPage
             onStartClick={handleStartClick}
-            onCategoriesExtracted={(categories, fullData) =>
-              handleCategoriesExtracted(categories, fullData)
-            }
-            similarCaseGroups={selectedSimilarCaseGroups}
+            onCategoriesExtracted={handleCategoriesExtracted}
+            selectedCategoryData={selectedCategoryData}
           />
         </Main>
       </Container>

@@ -3,29 +3,27 @@ import CustomColumn from '../../components/CommonComponents/CustomColumn';
 import B_TopButtons from './B_TopButtons';
 import ComplainBox from '../../components/ComplainBox';
 
-const B_ComplainListComponent = ({ similarCaseGroups }) => {
+const B_ComplainListComponent = ({ categoryData }) => {
 	useEffect(() => {
-		if (similarCaseGroups && similarCaseGroups.length > 0) {
-			console.log('similar_case_groups가 B_컴포넌트로 전달 성공:', similarCaseGroups);
+		if (categoryData) {
+			console.log('B 컴포넌트로 전달된 데이터:', categoryData);
 		}
-	}, [similarCaseGroups]);
+	}, [categoryData]);
 
-	// 모든 case들을 하나의 배열로 평탄화(flatten)합니다.
-	const cases = similarCaseGroups.flatMap((group) => group.cases);
+	const { target_case, similar_case_groups } = categoryData || {};
 
 	return (
 		<CustomColumn $width="90%" $alignItems="center" $justifyContent="flex-start">
 			<B_TopButtons />
 
 			<CustomColumn $width="100%" $alignItems="center" $justifyContent="center" $gap="6rem">
-				{cases.map((item, index) => (
+				{target_case && (
 					<ComplainBox
-						key={index}
-						title={item.case.title}
-						recommendedAnswer={item.recommended_answer}
-						answerDate={item.case.answer_date}
+						title={target_case.title}
+						recommendedAnswer={target_case.content}
+						answerDate={target_case.answer_date}
 					/>
-				))}
+				)}
 			</CustomColumn>
 		</CustomColumn>
 	);
