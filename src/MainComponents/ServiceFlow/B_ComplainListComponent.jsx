@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import CustomColumn from '../../components/CommonComponents/CustomColumn';
 import WholeToggleButton from '../../components/Toggle/WholeToggleButton';
 import ComplainBox from '../../components/ComplainBox';
-import B_TopButtons from './B_TopButtons';
 
 const B_ComplainListComponent = ({ categoryData }) => {
 	useEffect(() => {
@@ -15,9 +14,9 @@ const B_ComplainListComponent = ({ categoryData }) => {
 
 	return (
 		<CustomColumn $width="90%" $alignItems="center" $justifyContent="flex-start" $gap="2rem">
-			<B_TopButtons />
 			{target_case && (
 				<ComplainBox
+					key={target_case.case_id} // key를 설정해 컴포넌트 강제 재생성
 					title={target_case.title}
 					recommendedAnswer={target_case.content}
 					answerDate={target_case.answer_date}
