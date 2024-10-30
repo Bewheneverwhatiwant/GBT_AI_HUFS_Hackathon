@@ -19,6 +19,7 @@ const CustomBox = styled.div`
   background-position: center;
 
   border-radius: ${(props) => props.$borderRadius || '0.5rem'};
+  border: ${(props) => props.$border || 'none'};
   padding: ${props => props.$padding || '0.5rem'};
 
   opacity: ${props => props.$opacity || '100'};

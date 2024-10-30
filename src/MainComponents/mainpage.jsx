@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import CustomFont from '../components/CommonComponents/CustomFont';
-import CustomColumn from '../components/CommonComponents/CustomColumn';
-import CustomRow from '../components/CommonComponents/CustomRow';
-import CustomDivider from '../components/CommonComponents/CustomDivider';
-import CustomCenter from '../components/CommonComponents/CustomCenter';
-
 import A_CoverComponent from './ServiceFlow/a_CoverComponent';
+import B_ComplainListComponent from './ServiceFlow/B_ComplainListComponent';
 
 const MainPage = () => {
+	const [isComplaintsVisible, setIsComplaintsVisible] = useState(false);
+
+	const handleStartClick = () => {
+		setIsComplaintsVisible(true); // '시연시작' 버튼 클릭 시 호출
+	};
 
 	return (
-
-		<A_CoverComponent />
-
+		<>
+			{isComplaintsVisible ? (
+				<B_ComplainListComponent />
+			) : (
+				<A_CoverComponent onStartClick={handleStartClick} />
+			)}
+		</>
 	);
 };
 
