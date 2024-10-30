@@ -20,8 +20,8 @@ const fetchCategorizedData = async (onCategoriesExtracted) => {
 
         console.log('추출된 고유 category_name:', uniqueCategories);
 
-        // 추출된 category_name을 부모 컴포넌트로 전달
-        onCategoriesExtracted(uniqueCategories);
+        // 추출된 category_name과 응답값 전체(data)를 부모 컴포넌트로 전달
+        onCategoriesExtracted(uniqueCategories, data);
     } catch (error) {
         console.error('API 호출 실패:', error);
     }

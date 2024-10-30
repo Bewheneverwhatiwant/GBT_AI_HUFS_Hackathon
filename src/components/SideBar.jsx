@@ -17,7 +17,6 @@ const SideBarContainer = styled.div`
   justify-content: flex-start;
   overflow-y: scroll;
 
-  /* 스크롤바 스타일 */
   &::-webkit-scrollbar {
     width: 12px;
   }
@@ -32,7 +31,7 @@ const SideBarContainer = styled.div`
   }
 `;
 
-const SideBar = ({ showCategories, categories }) => {
+const SideBar = ({ showCategories, categories, selectedCategory, onCategorySelect, isLoading }) => {
 	useEffect(() => {
 		if (categories.length > 0) {
 			console.log('카테고리 이름들 전달 성공');
@@ -48,15 +47,29 @@ const SideBar = ({ showCategories, categories }) => {
 					</CustomFont>
 				</CustomRow>
 
-				{showCategories &&
+				{isLoading ? (
+					<CustomFont $color="white" $font="1rem">
+						로딩 중...
+					</CustomFont>
+				) : (
+					showCategories &&
 					categories.map((category, index) => (
 						<CustomRow key={index} $width="100%" $alignItems="center" $justifyContent="flex-start">
-							<CustomButton $justifyContent="flex-start" $gap="1rem" $width="90%"
-								$backgroundColor="transparent" $hoverColor="#282D31">
-								<CustomFont $color="white" $font="1rem">{category}</CustomFont>
+							<CustomButton
+								$justifyContent="flex-start"
+								$gap="1rem"
+								$width="90%"
+								$backgroundColor={selectedCategory === category ? '#282D31' : 'transparent'}
+								$hoverColor="#282D31"
+								onClick={() => onCategorySelect(category)}
+							>
+								<CustomFont $color="white" $font="1rem">
+									{category}
+								</CustomFont>
 							</CustomButton>
 						</CustomRow>
-					))}
+					))
+				)}
 			</CustomColumn>
 		</SideBarContainer>
 	);
