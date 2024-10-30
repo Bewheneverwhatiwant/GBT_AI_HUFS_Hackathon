@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import CustomColumn from '../../components/CommonComponents/CustomColumn';
-import B_TopButtons from './B_TopButtons';
+import WholeToggleButton from '../../components/Toggle/WholeToggleButton';
 import ComplainBox from '../../components/ComplainBox';
+import B_TopButtons from './B_TopButtons';
 
 const B_ComplainListComponent = ({ categoryData }) => {
 	useEffect(() => {
@@ -13,18 +14,19 @@ const B_ComplainListComponent = ({ categoryData }) => {
 	const { target_case, similar_case_groups } = categoryData || {};
 
 	return (
-		<CustomColumn $width="90%" $alignItems="center" $justifyContent="flex-start">
+		<CustomColumn $width="90%" $alignItems="center" $justifyContent="flex-start" $gap="2rem">
 			<B_TopButtons />
+			{target_case && (
+				<ComplainBox
+					title={target_case.title}
+					recommendedAnswer={target_case.content}
+					answerDate={target_case.answer_date}
+				/>
+			)}
 
-			<CustomColumn $width="100%" $alignItems="center" $justifyContent="center" $gap="6rem">
-				{target_case && (
-					<ComplainBox
-						title={target_case.title}
-						recommendedAnswer={target_case.content}
-						answerDate={target_case.answer_date}
-					/>
-				)}
-			</CustomColumn>
+			{similar_case_groups && similar_case_groups.length > 0 && (
+				<WholeToggleButton similarCaseGroups={similar_case_groups} />
+			)}
 		</CustomColumn>
 	);
 };
