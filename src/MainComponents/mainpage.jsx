@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import A_CoverComponent from './ServiceFlow/a_CoverComponent';
+import A_CoverComponent from './ServiceFlow/A_Component';
 import B_ComplainListComponent from './ServiceFlow/B_ComplainListComponent';
 
 const MainPage = ({ onStartClick, onCategoriesExtracted, selectedCategoryData }) => {
