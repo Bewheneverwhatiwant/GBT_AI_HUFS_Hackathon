@@ -15,19 +15,25 @@ const B_ComplainListComponent = ({ categoryData }) => {
 
 	return (
 		<CustomColumn $width="90%" $alignItems="center" $justifyContent="flex-start" $gap="2rem">
-			<B_TopButtons />
+			{categoryData && (
 
-			{target_case && (
-				<ComplainBox
-					key={target_case.case_id} // key를 설정해 컴포넌트 강제 재생성
-					title={target_case.title}
-					recommendedAnswer={target_case.recommended_answer}
-					answerDate={target_case.answer_date}
-				/>
-			)}
+				<>
+					<B_TopButtons />
 
-			{similar_case_groups && similar_case_groups.length > 0 && (
-				<WholeToggleButton similarCaseGroups={similar_case_groups} />
+					{target_case && (
+						<ComplainBox
+							key={target_case.case_id} // key를 설정해 컴포넌트 강제 재생성
+							title={target_case.title}
+							recommendedAnswer={target_case.recommended_answer}
+							answerDate={target_case.answer_date}
+						/>
+					)}
+
+					{similar_case_groups && similar_case_groups.length > 0 && (
+						<WholeToggleButton similarCaseGroups={similar_case_groups} />
+					)}
+				</>
+
 			)}
 		</CustomColumn>
 	);

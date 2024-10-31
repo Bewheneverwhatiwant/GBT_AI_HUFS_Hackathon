@@ -61,6 +61,17 @@ function App() {
     setIsLoading(false);
   };
 
+  const handleCategorySelect = (categoryName) => {
+    setSelectedCategory(categoryName);
+    const categoryData = data.find(item => item.category_name === categoryName);
+    if (categoryData) {
+      setSelectedCategoryData(categoryData);
+    }
+
+    // 스크롤을 맨 위로 이동
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <>
       <ResetCss />
@@ -70,13 +81,7 @@ function App() {
           categories={categories}
           isLoading={isLoading}
           selectedCategory={selectedCategory}
-          onCategorySelect={(categoryName) => {
-            setSelectedCategory(categoryName);
-            const categoryData = data.find(item => item.category_name === categoryName);
-            if (categoryData) {
-              setSelectedCategoryData(categoryData);
-            }
-          }}
+          onCategorySelect={handleCategorySelect}
         />
         <Main>
           <MainPage
