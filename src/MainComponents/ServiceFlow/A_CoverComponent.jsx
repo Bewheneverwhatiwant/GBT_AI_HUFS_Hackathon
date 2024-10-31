@@ -5,10 +5,20 @@ import CustomButton from '../../components/CommonComponents/CustomButton';
 import CustomFont from '../../components/CommonComponents/CustomFont';
 import CustomRow from '../../components/CommonComponents/CustomRow';
 
-// 비동기 API 호출 및 category_name 추출 함수
+// category_name 추출 함수
 const fetchCategorizedData = async (onCategoriesExtracted) => {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_SERVER}/categorized`);
+        const params = {
+            skip: 0,
+            limit: 5,
+            search_top_k: 10, // 각 민원당 검색할 유사 민원 수
+            category_skip: 0,
+            category_limit: 20, // 각 카테고리별로 반환할 민원 수
+        };
+
+        const response = await axios.get(`${import.meta.env.VITE_SERVER}/categorized`, {
+            params: params
+        });
         const data = response.data;
 
         console.log('API 호출 성공:', data);
